@@ -39,9 +39,7 @@
     "rsuite": "^5.10.0",
     "simplebar-react": "^2.3.7",
     "typescript": "^4.6.3",
-    "uuid": "^8.3.2"
-  },
-  "devDependencies": {
+    "uuid": "^8.3.2",
     "@babel/core": "^7.17.9",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",

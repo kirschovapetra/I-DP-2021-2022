@@ -1,5 +1,3 @@
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 
@@ -39,7 +37,6 @@ class AbstractModel(models.Model):
 
     @classmethod
     def update_or_create_multiple(cls, model_list):
-
         models_result = []
         for mdl in model_list:
             obj, created = cls.update_or_create(mdl)
@@ -50,9 +47,6 @@ class AbstractModel(models.Model):
     @classmethod
     def get_titles_distinct(cls):
         titles = cls.objects.values_list('title', flat=True).distinct()
-        # titles_split = []
-        # for t in titles:
-        #     titles_split += t.split("_")
         return [{'title': val} for val in list(set(titles))]
 
     @classmethod
@@ -164,6 +158,7 @@ class TwoStepModel(AbstractModel):
 
     class Meta:
         db_table = 'twostepmodel'
+
     base_dir = models.CharField(max_length=100, null=True, help_text='Primary model full name')
     primary_method = models.CharField(max_length=100, null=True, help_text='Primary model full name')
     primary_name_full = models.CharField(max_length=100, null=True, help_text='Primary model full name')
