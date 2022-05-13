@@ -94,7 +94,6 @@ class Graphs:
 
         acc = history['accuracy']
         val_acc = history['val_accuracy']
-        best_epoch_id = np.argmax(val_acc)
 
         axes[1].plot(epochs, acc, label='Training Accuracy')
         axes[1].plot(epochs, val_acc, label='Validation Accuracy')

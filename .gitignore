@@ -7,3 +7,5 @@
 **/**/resources/models/**
 **/**/api/migrations/*
 **/**/.idea/**
+**/**/cut_images/**/**
+!**/**/gitkeep

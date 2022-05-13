@@ -32,13 +32,19 @@ class TwoStepClassifier:
     def evaluate(self):
         """ Evaluate 2-step and merged classifiers """
 
-        _, test_df, _ = Datasets.load_dataset_df(Dataset.VEGA_MERGED.value, train_size=0.3)
+        _, test_df, _ = Datasets.load_dataset_df(Dataset.VEGA_MERGED.value, train_size=0.8)
 
         sample_list = list(test_df['filename'])
         correct_labels = list(test_df['class'])
 
         sec_start = datetime.now()
         sec_acc_dict, sec_acc = self.model_secondary.evaluate()
+
+        print("###########################")
+        for xx in sec_acc_dict.keys():
+            print(f"{xx}: {sec_acc_dict[xx]}")
+        print("###########################")
+
         sec_time = datetime.now() - sec_start
 
         # logging start

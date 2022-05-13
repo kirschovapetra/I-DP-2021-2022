@@ -126,7 +126,7 @@ def cut_images(root_dir, suffix=""):
 
 
 if __name__ == '__main__':
-    # crop out images from "tmp/images/low_quality_images_csv.csv"
+    # crop out images from "low_quality_images_csv.csv"
     cut_images('low_quality_images', '_b')
-    # crop out images from "tmp/images/special_chars_csv.csv"
+    # crop out images from "special_chars_csv.csv"
     cut_images('special_chars')

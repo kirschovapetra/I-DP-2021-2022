@@ -115,7 +115,7 @@ class SecondaryModel(BaseModel):
 
             # initialize secondary dataset for a label
             model = self.reload_i(label_id)
-            accuracy = model.evaluate(self.test_iters[label_id], plot=False)
+            accuracy = model.evaluate(self.test_iters[label_id], plot=True)
             # save accuracy
             acc_dict[label_id] = accuracy
             Utils.reset_keras(model.model)

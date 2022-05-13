@@ -101,28 +101,61 @@ if __name__ == '__main__':
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
 
-        # main_cnn([
-        #     CnnName.VGG19.value,
-        #     CnnName.INCEPTIONV3.value,
-        #     CnnName.RESNET50.value,
-        #     CnnName.RESNEXT50.value,
-        #     CnnName.CUSTOM.value
-        # ], RELOAD=True)
+        # reload=False for training new models, reload=True for loading saved models
 
-        # main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20, NAME_PRIMARY=CnnName.INCEPTIONV3.value, NAME_SECONDARY=CnnName.INCEPTIONV3.value,
-        #                 RELOAD_PRIM=True, RELOAD_SEC=True)
+        # train and test two-step models
 
-        # main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20, NAME_PRIMARY=CnnName.RESNET50.value, NAME_SECONDARY=CnnName.RESNET50.value,
-        #                 RELOAD_PRIM=True, RELOAD_SEC=False)
-        #
-        # main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20, NAME_PRIMARY=CnnName.VGG19.value, NAME_SECONDARY=CnnName.VGG19.value,
-        #                 RELOAD_PRIM=True, RELOAD_SEC=True)
+        # I. INCEPTIONV3
+        # II. INCEPTIONV3
+        main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20,
+                        NAME_PRIMARY=CnnName.INCEPTIONV3.value, NAME_SECONDARY=CnnName.INCEPTIONV3.value,
+                        RELOAD_PRIM=False, RELOAD_SEC=False)
 
-        # main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20, NAME_PRIMARY=CnnName.CUSTOM.value, NAME_SECONDARY=CnnName.CUSTOM.value,
-        #                 RELOAD_PRIM=True, RELOAD_SEC=False)
+        # I. VGG19
+        # II. VGG19
+        main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20,
+                        NAME_PRIMARY=CnnName.VGG19.value, NAME_SECONDARY=CnnName.VGG19.value,
+                        RELOAD_PRIM=False, RELOAD_SEC=False)
 
-        main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20, NAME_PRIMARY=CnnName.RESNEXT50.value, NAME_SECONDARY=CnnName.RESNEXT50.value,
-                        RELOAD_PRIM=True, RELOAD_SEC=False)
+        # I. RESNET50
+        # II. RESNET50
+        main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20,
+                        NAME_PRIMARY=CnnName.RESNET50.value, NAME_SECONDARY=CnnName.RESNET50.value,
+                        RELOAD_PRIM=False, RELOAD_SEC=False)
 
-        # main_2_step_bagging(NAME_PRIMARY=CnnName.RESNEXT50.value, NAME_SECONDARY=CnnName.VGG19.value, N_EST=3,
-        #                     TRAIN_GEN_ARGS=TRAIN_ARGS_DEFAULT, RELOAD_PRIM=True, RELOAD_SEC=False)
+        # I. RESNEXT50
+        # II. RESNEXT50
+        main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20,
+                        NAME_PRIMARY=CnnName.RESNEXT50.value, NAME_SECONDARY=CnnName.RESNEXT50.value,
+                        RELOAD_PRIM=False, RELOAD_SEC=False)
+
+        # I. CUSTOM
+        # II. CUSTOM
+        main_2_step_cnn(EPOCHS_PRIM=20, EPOCHS_SEC=20,
+                        NAME_PRIMARY=CnnName.CUSTOM.value, NAME_SECONDARY=CnnName.CUSTOM.value,
+                        RELOAD_PRIM=False, RELOAD_SEC=False)
+
+        # I.Stacking (CUSTOM + ResNet50)
+        # II.VGG19
+        main_2_step_stacking(EPOCHS_PRIM=20, EPOCHS_SEC=20,
+                             NAMES_PRIMARY=[CnnName.CUSTOM.value, CnnName.RESNET50.value],
+                             NAME_SECONDARY=CnnName.VGG19.value,
+                             N_FOLDS=3, RELOAD_PRIM=False, RELOAD_SEC=False)
+
+        # I.Bagging(3 x InceptionV3)
+        # II.ResNext50
+        main_2_step_bagging(EPOCHS_PRIM=20, EPOCHS_SEC=20,
+                            NAME_PRIMARY=CnnName.INCEPTIONV3.value, NAME_SECONDARY=CnnName.RESNEXT50.value,
+                            RELOAD_PRIM=False, RELOAD_SEC=False)
+
+        # I.Boosting(ResNet50)
+        # II.Inception
+        main_2_step_boosting(EPOCHS_PRIM=20, EPOCHS_SEC=20,
+                             NAME_PRIMARY=CnnName.RESNET50.value, NAME_SECONDARY=CnnName.INCEPTIONV3.value,
+                             RELOAD_PRIM=False, RELOAD_SEC=False)
+
+        # # I.Bagging(3 x ResNeXt)
+        # # II.VGG19
+        main_2_step_bagging(EPOCHS_PRIM=20, EPOCHS_SEC=20,
+                            NAME_PRIMARY=CnnName.RESNEXT50.value, NAME_SECONDARY=CnnName.VGG19.value, N_EST=3,
+                            RELOAD_PRIM=False, RELOAD_SEC=False)

@@ -187,10 +187,10 @@ class Boosting(EnsembleModel):
             Graphs.plot_classification_results(classes=list(self.test_iter.class_indices.keys()), test_y=test_y, pred_y=pred_y_xgb, title="BOOSTING: " + self.dirname + " XGB")
             Graphs.plot_boosting_history(self.histories['cnn'], self.histories['xgb'], self.dirname, f"tmp/charts/boosting/{self.dirname}_boosting_hist.png")
 
-        cnn_acc = metrics.accuracy_score(test_y, pred_y_cnn)
-        xgb_acc = metrics.accuracy_score(test_y, pred_y_xgb)
+        cnn_acc = metrics.accuracy_score(test_y, pred_y_cnn) * 100
+        xgb_acc = metrics.accuracy_score(test_y, pred_y_xgb) * 100
 
-        logger.log_eval_end(filenames, [cnn_acc * 100, xgb_acc * 100])
+        logger.log_eval_end(filenames, [cnn_acc, xgb_acc])
         return xgb_acc
 
     def _predict(self, X_test_features: list) -> Tuple[list, list]:

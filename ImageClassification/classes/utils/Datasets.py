@@ -1,7 +1,6 @@
 import os.path
 import re
 import shutil
-import splitfolders
 from imageio import imread
 from classes.utils.Constants import Dataset, TRAIN_ARGS_DEFAULT
 from classes.utils.Constants import LABELS_MERGED_GEN
@@ -385,18 +384,6 @@ class Datasets:
         if dataset == Dataset.VEGA_PRIMARY.value:
             path = "datasets/vega/vega_primary"
             train_df, test_df, val_df = Datasets.split(3, path, train_size=train_size)
-        elif dataset == Dataset.VEGA_PRIMARY_SPLIT.value:
-            path = "datasets/vega/vega_primary_split"
-            train_df, test_val_df, _ = Datasets.load_split_df(train_dir=os.path.join(path, 'train'), test_dir=os.path.join(path, 'test_val'))
-            test_df, val_df = model_selection.train_test_split(test_val_df, train_size=0.5, shuffle=True, random_state=123)
-        elif dataset == Dataset.VEGA_PRIMARY_SPLIT_DEN.value:
-            path = "datasets/vega/vega_primary_split_den"
-            train_df, test_val_df, _ = Datasets.load_split_df(train_dir=os.path.join(path, 'train'), test_dir=os.path.join(path, 'test_val'))
-            test_df, val_df = model_selection.train_test_split(test_val_df, train_size=0.5, shuffle=True, random_state=123)
-        elif dataset == Dataset.VEGA_PRIMARY_SPLIT_THR.value:
-            path = "datasets/vega/vega_primary_split_thr"
-            train_df, test_val_df, _ = Datasets.load_split_df(train_dir=os.path.join(path, 'train'), test_dir=os.path.join(path, 'test_val'))
-            test_df, val_df = model_selection.train_test_split(test_val_df, train_size=0.5, shuffle=True, random_state=123)
         elif dataset == Dataset.VEGA_MERGED.value:
             path = "datasets/vega/vega_merged"
             train_df, test_df, val_df = Datasets.split(3, path, train_size=train_size)
@@ -568,46 +555,6 @@ class Datasets:
                 for j in range(n):
                     Datasets.save_first_img_from_batch(data_iter=data_iter, class_dir=class_dir, reset=False)
                 data_iter.reset()
-
-    @staticmethod
-    def generate_sample_dataset(source_path, dest_path):
-        """
-        Generate sample dataset with ImageDataGenerator
-        :param source_path: source directory
-        :param dest_path: destination directory
-        """
-
-        idg = ImageDataGenerator(
-            rotation_range=40,
-            height_shift_range=0.1,
-            width_shift_range=0.1,
-            zoom_range=0.25
-        )
-        data_iter = idg.flow_from_directory(source_path, batch_size=1, target_size=(100, 60))
-
-        dest_path = Datasets.init_sample_dir(dest_path)
-        sleep(0.01)
-        for i in range(500):
-            Datasets.save_first_img_from_batch(data_iter=data_iter, class_dir=dest_path, reset=False)
-            data_iter.reset()
-
-    @staticmethod
-    def split_dataset(source_path, dest_path, train_size):
-        """
-        Split dataset into two folders
-
-        :param source_path: source directory
-        :param dest_path: destination directory
-        :param train_size: train dataset size
-        """
-        splitfolders.ratio(
-            input=source_path,
-            output=dest_path,
-            seed=123,
-            ratio=(train_size, 1.0 - train_size),
-            group_prefix=None,
-            move=False
-        )
 
     @staticmethod
     def denoise_all(source_path, dest_path):

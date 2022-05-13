@@ -12,9 +12,6 @@ class Dataset(enum.Enum):
     DIDA = 'dida'
     MNIST = 'mnist'
     VEGA_PRIMARY = 'vega_primary'
-    VEGA_PRIMARY_SPLIT = 'vega_primary_split'
-    VEGA_PRIMARY_SPLIT_DEN = 'vega_primary_split_den'
-    VEGA_PRIMARY_SPLIT_THR = 'vega_primary_split_thr'
     VEGA_SECONDARY = 'vega_secondary'
     VEGA_MERGED = 'vega_merged'
 
