@@ -11,7 +11,7 @@ import i18n from "../../../translation/i18n";
  */
 export const ResNet50Help = () => {
 
-    const imagesRoot = '../../../../../static/images/help/models'
+    const imagesRoot = `${i18n.t("helpImgPath")}/models`
 
     return (
         <>

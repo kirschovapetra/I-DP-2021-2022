@@ -1,5 +1,6 @@
 export const en = {
     translation: {
+        'helpImgPath': "../../../../static/images/help/en",
         'pl': 's',
         'singleImage': "Single image",
         'cropImages': "Crop images",
@@ -176,7 +177,9 @@ export const en = {
             "resizedTo": "resized to",
             "image": "image",
             "horizontal": "horizontal",
+            "horizontalFlip": "Horizontal flip",
             "vertical": "vertical",
+            "verticalFlip": "Vertical flip",
             "customColor": "Custom color",
             "increased": "increased",
             "decreased": "decreased",
@@ -192,7 +195,22 @@ export const en = {
             "weight": "Weight",
             "maxIter": "Max. iterations",
             "patchSize": "Patch size",
-            "source": "Source"
+            "source": "Source",
+            "adaptLocal": "Adaptive (local)",
+            "offsetText": "Constant subtracted from weighted mean of neighborhood",
+            "cvalText": "Value to fill past edges (when mode = 'constant')",
+            "threshMethodText": "Method to determine threshold for local neighborhood",
+            "modeText": "Determines how the array borders are handled",
+            "blockSizeText": "Odd size of pixel neighborhood",
+            "winSizeText": "Filter size",
+            "sigColorText": "Standard deviation for grayvalue/color distance",
+            "sigSpatialText": "Standard deviation for range distance",
+            "binsText": "Number of discrete values for color filtering",
+            "weightText": "Denoising strength",
+            "epsText": "Relative difference of the cost function",
+            "maxIterText": "Max. number of iterations for optimization",
+            "patchSizeText": "Size of denoising patches",
+            "patchDistanceText": "Maximal patch distance in pixels",
         }
     }
 }

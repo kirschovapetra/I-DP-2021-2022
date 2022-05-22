@@ -12,7 +12,7 @@ import i18n from "../../../translation/i18n";
  */
 export const RotationLegend = () => {
 
-    const imagesRoot = '../../../../../static/images/help/preprocessing'
+    const imagesRoot = `${i18n.t("helpImgPath")}/preprocessing`
 
     return (
         <>

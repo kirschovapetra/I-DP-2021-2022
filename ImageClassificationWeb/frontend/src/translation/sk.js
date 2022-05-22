@@ -1,5 +1,6 @@
 export const sk = {
     translation: {
+        'helpImgPath': "../../../../static/images/help/sk",
         'pl': 'y',
         'singleImage': "Samostatný obrázok",
         'cropImages': "Vyrezávanie obrázkov",
@@ -169,15 +170,17 @@ export const sk = {
             "flip": "prevrátenie",
             "rotate": "rotácia",
             "rotated": "zrotovaný",
-            "normalize": "Applikovať normalizáciu kanálov",
+            "normalize": "Aplikovať normalizáciu kanálov",
             "normalized": "normalizovaný",
-            "denoiseAlg": "Applikovať denoising algoritmus",
-            "thresholdAlg": "Applikovať thresholding algoritmus",
+            "denoiseAlg": "Aplikovať denoising algoritmus",
+            "thresholdAlg": "Aplikovať thresholding algoritmus",
             "resize": "zmena rozmerov",
             "resizedTo": "zmena rozmerov na",
             "image": "obrázku",
             "horizontal": "horizontálny",
+            "horizontalFlip": "Horizontálne prevrátenie",
             "vertical": "vertikálny",
+            "verticalFlip": "Vertikálne prevrátenie",
             "customColor": "Vlastná farba",
             "increased": "zvýšený",
             "decreased": "znížený",
@@ -192,7 +195,23 @@ export const sk = {
             "winSize": "Veľkosť okna",
             "weight": "Váha",
             "maxIter": "Max. počet iterácií",
-            "source": "Zdroj"
+            "source": "Zdroj",
+            "adaptLocal": "Adaptívny (lokálny)",
+
+            "offsetText": "Konštanta odpočítaná od váženého priemeru okolia bodov",
+            "cvalText": "Hodnota použitá na výplň okrajových bodov (ak mód = 'constant')",
+            "threshMethodText": "Metóda použitá na počítanie hodnoty thresholdu pre okolie bodov",
+            "modeText": "Určuje akým spôsobom budú nastavené okrajové body",
+            "blockSizeText": "Nepárna veľkosť okolia bodu",
+            "winSizeText": "Veľkosť filtra",
+            "sigColorText": "Štandardná odchýlka pre grayvalue/color vzdialenosť",
+            "sigSpatialText": "Štandardná odchýlka pre rozsah vzdialeností pixelov",
+            "binsText": "Počet diskrétnych hodnôt pre farebné filtre",
+            "weightText": "Sila algoritmu",
+            "epsText": "Veľkosť relatívnej chyby určujúcej zastavujúce podmienky algoritmu",
+            "maxIterText": "Maximálny počet optimalizačných iterácií",
+            "patchSizeText": "Veľkosť filtrov aplikujúcich odstraňovanie šumu",
+            "patchDistanceText": "Maximálna vzdialenosť filtrov v pixeloch",
         }
     }
 }

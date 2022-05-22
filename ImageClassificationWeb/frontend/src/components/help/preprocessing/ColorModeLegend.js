@@ -11,7 +11,7 @@ import {capitalize} from "../../../utils";
  */
 export const ColorModeLegend = () => {
 
-    const imagesRoot = '../../../../../static/images/help/preprocessing'
+    const imagesRoot = `${i18n.t("helpImgPath")}/preprocessing`
     return (
         <>
             <CRow className={'justify-content-center mx-auto'}>

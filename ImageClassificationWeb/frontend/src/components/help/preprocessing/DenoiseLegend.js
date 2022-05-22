@@ -11,7 +11,7 @@ import i18n from "i18next";
  */
 export const DenoiseLegend = () => {
 
-    const imagesRoot = '../../../../../static/images/help/preprocessing'
+    const imagesRoot = `${i18n.t("helpImgPath")}/preprocessing`
 
     return (
         <>
@@ -33,11 +33,11 @@ export const DenoiseLegend = () => {
                             <CRow>
                                 <CCallout color="primary">
                                     <ul className={'text-start'} style={{fontWeight: 'normal'}}>
-                                        <li><b className={'primary-text'}>Window size: </b>Filter size</li>
-                                        <li><b className={'primary-text'}>Sigma color: </b>Standard deviation for grayvalue/color distance</li>
-                                        <li><b className={'primary-text'}>Sigma spatial: </b>Standard deviation for range distance</li>
-                                        <li><b className={'primary-text'}>Bins: </b>Number of discrete values for color filtering</li>
-                                        <li><b className={'primary-text'}>Mode: </b>How to handle values outside the borders
+                                        <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.windowSize")}: </b>{i18n.t("help.winSizeText")}</li>
+                                        <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.sigmaColor")}: </b>{i18n.t("help.sigColorText")}</li>
+                                        <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.sigmaSpatial")}: </b>{i18n.t("help.sigSpatialText")}</li>
+                                        <li><b className={'primary-text'}>Bins: </b>{i18n.t("help.binsText")}</li>
+                                        <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.mode")}: </b> {i18n.t("help.modeText")}
                                             <ul>
                                                 <li><b>{i18n.t("help.options")}:</b> constant, edge, symmetric, reflect, wrap</li>
                                             </ul>
@@ -72,9 +72,9 @@ export const DenoiseLegend = () => {
                         <CCol>
                             <CCallout color="primary">
                                 <ul className={'text-start'} style={{fontWeight: 'normal'}}>
-                                    <li><b className={'primary-text'}>Weight: </b>Denoising strength</li>
-                                    <li><b className={'primary-text'}>Eps: </b>Relative difference of the cost function</li>
-                                    <li><b className={'primary-text'}>Max. iterations: </b>Max. number of iterations for optimization</li>
+                                    <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.weight")}: </b>{i18n.t("help.weightText")}</li>
+                                    <li><b className={'primary-text'}>Eps: </b>{i18n.t("help.epsText")}</li>
+                                    <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.maxIter")}: </b>{i18n.t("help.maxIterText")}</li>
                                 </ul>
                                 <p className={'text-start'}>{i18n.t("help.source")}: {' '}
                                     <CLink href={'https://scikit-image.org/docs/dev/api/skimage.restoration.html#skimage.restoration.denoise_tv_chambolle'} target="_blank">scikit-image:
@@ -85,8 +85,8 @@ export const DenoiseLegend = () => {
                         <CCol>
                             <CCallout color="primary">
                                 <ul className={'text-start'} style={{fontWeight: 'normal'}}>
-                                    <li><b className={'primary-text'}>Patch size: </b>Size of denoising patches</li>
-                                    <li><b className={'primary-text'}>Patch distance: </b>Maximal patch distance in pixels</li>
+                                    <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.patchSize")}: </b>{i18n.t("help.patchSizeText")}</li>
+                                    <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.patchDist")}: </b>{i18n.t("help.patchDistanceText")}</li>
                                 </ul>
                                 <p className={'text-start'}>{i18n.t("help.source")}: {' '}
                                     <CLink href={'https://scikit-image.org/docs/dev/api/skimage.restoration.html#denoise-nl-means'} target="_blank">scikit-image: denoise_nl_means</CLink>

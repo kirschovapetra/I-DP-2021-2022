@@ -11,7 +11,7 @@ import i18n from "../../../translation/i18n";
  */
 export const NormalizeLegend = () => {
 
-    const imagesRoot = '../../../../../static/images/help/preprocessing'
+    const imagesRoot = `${i18n.t("helpImgPath")}/preprocessing`
 
     return (
         <>

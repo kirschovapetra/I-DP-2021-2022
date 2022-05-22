@@ -11,7 +11,7 @@ import i18n from "../../../translation/i18n";
  */
 export const ThresholdLegend = () => {
 
-    const imagesRoot = '../../../../../static/images/help/preprocessing'
+    const imagesRoot = `${i18n.t("helpImgPath")}/preprocessing`
 
     return (
         <>
@@ -34,7 +34,7 @@ export const ThresholdLegend = () => {
 
                     <CRow>
                         <CCol>
-                            <h6 className={'ml-3 my-3 text-start'}>Adaptive (local) thresholding: </h6>
+                            <h6 className={'ml-3 my-3 text-start'}>{i18n.t("help.adaptLocal")} thresholding: </h6>
                             <CRow className={'justify-content-start'}>
                                 <CCol><CImage className={'mb-1'} thumbnail src={`${imagesRoot}/thresholdAdaptive1.png`}/></CCol>
                                 <CCol><CImage thumbnail src={`${imagesRoot}/thresholdAdaptive2.png`}/></CCol>
@@ -42,15 +42,15 @@ export const ThresholdLegend = () => {
                             <CRow>
                                 <CCallout color="primary">
                                     <ul className={'text-start'} style={{fontWeight:'normal'}}>
-                                        <li><b className={'primary-text'}>Offset: </b> Constant subtracted from weighted mean of neighborhood</li>
-                                        <li><b className={'primary-text'}>C-val: </b> Value to fill past edges (when mode = 'constant')</li>
-                                        <li><b className={'primary-text'}>Method: </b> Method to determine threshold for local neighborhood
+                                        <li><b className={'primary-text'}>Offset: </b> {i18n.t("help.offsetText")}</li>
+                                        <li><b className={'primary-text'}>C-val: </b> {i18n.t("help.cvalText")}</li>
+                                        <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.method")}: </b> {i18n.t("help.threshMethodText")}
                                             <ul><li><b>{i18n.t("help.options")}:</b> generic, gaussian, mean, median</li></ul>
                                         </li>
-                                        <li><b className={'primary-text'}>Mode: </b> Determines how the array borders are handled
+                                        <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.mode")}: </b> {i18n.t("help.modeText")}
                                             <ul><li><b>{i18n.t("help.options")}:</b> reflect, constant, nearest, mirror, wrap</li></ul>
                                         </li>
-                                        <li><b className={'primary-text'}>Block size: </b> Odd size of pixel neighborhood
+                                        <li><b className={'primary-text'}>{i18n.t("constants.preprocessing.blockSize")}: </b> {i18n.t("help.blockSizeText")}
                                             <ul><li><b>{i18n.t("help.range")}:</b> {i18n.t("help.oddNum")} {i18n.t("help.from")} 1 {i18n.t("help.to")} 201</li></ul>
                                         </li>
                                     </ul>

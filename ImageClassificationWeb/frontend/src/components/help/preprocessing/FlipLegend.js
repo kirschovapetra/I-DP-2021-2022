@@ -11,7 +11,7 @@ import i18n from "i18next";
  */
 export const FlipLegend = () => {
 
-    const imagesRoot = '../../../../../static/images/help/preprocessing'
+    const imagesRoot = `${i18n.t("helpImgPath")}/preprocessing`
 
     return (
         <>
@@ -24,12 +24,12 @@ export const FlipLegend = () => {
                             <CImage className={'mb-1'} thumbnail src={`${imagesRoot}/original.png`}/>
                         </CCol>
                         <CCol>
-                            <h6 className={'mb-3 ml-3 text-start'}>{capitalize(i18n.t("help.horizontal"))} {i18n.t("help.flip")}: </h6>
+                            <h6 className={'mb-3 ml-3 text-start'}>{capitalize(i18n.t("help.horizontalFlip"))}: </h6>
                             <CImage className={'mb-1'} thumbnail src={`${imagesRoot}/horiz1.png`}/>
                             <CImage thumbnail src={`${imagesRoot}/horiz2.png`}/>
                         </CCol>
                         <CCol>
-                            <h6 className={'mb-3 ml-3 text-start'}>{capitalize(i18n.t("help.vertical"))} {i18n.t("help.flip")}: </h6>
+                            <h6 className={'mb-3 ml-3 text-start'}>{capitalize(i18n.t("help.verticalFlip"))}: </h6>
                             <CImage className={'mb-1'} thumbnail src={`${imagesRoot}/vert1.png`}/>
                             <CImage thumbnail src={`${imagesRoot}/vert2.png`}/>
                         </CCol>

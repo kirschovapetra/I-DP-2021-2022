@@ -44,6 +44,7 @@ export const CanvasDrawPreview = ({dataUrl, changeDataUrl}) => {
     const canvasRef = useRef(null)
     const noiseMaskRef = useRef(null)
     const canvasDestinationRef = useRef(null)
+    const [resetChanged, setResetChanged] = useState()
 
     const init = {
         brushRadiusRange: {
@@ -245,12 +246,13 @@ export const CanvasDrawPreview = ({dataUrl, changeDataUrl}) => {
                 <CCol lg={6} className={'justify-content-center'}>
                     <CRow>
                         <h5 className={'text-start'}>{i18n.t("predict.filters")}: </h5>
-                        <RangeGroup rangeItems={[blurRange, noiseRange]} labelSize={5}/>
+                        <RangeGroup rangeItems={[blurRange, noiseRange]} labelSize={5} key={resetChanged}/>
                         <div className={'text-center my-2'}>
                             <ButtonWithIcon color="danger" className={'mx-1'} disabled={false} showSpinner={false} icon={cilTrash}
                                             value={i18n.t("predict.resetFilters")} size={'sm'} onClick={() => {
                                 setBlurRange(init.blurRange)
                                 setNoiseRange(init.noiseRange)
+                                setResetChanged(Date.now())
                             }}/>
                         </div>
                     </CRow>

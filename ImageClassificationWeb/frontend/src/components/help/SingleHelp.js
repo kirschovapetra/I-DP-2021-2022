@@ -12,7 +12,7 @@ import i18n from "../../translation/i18n";
  */
 export const SingleHelp = ({method}) => {
 
-    const imagesRoot = '../../../../static/images/help'
+    const imagesRoot = i18n.t("helpImgPath")
 
     return (
         <>

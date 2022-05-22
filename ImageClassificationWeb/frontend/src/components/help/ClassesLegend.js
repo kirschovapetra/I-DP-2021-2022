@@ -10,7 +10,7 @@ import i18n from "../../translation/i18n";
  */
 export const ClassesLegend = () => {
 
-    const imagesRoot = '../../../static/images/help/exampleClasses'
+    const imagesRoot = `${i18n.t("helpImgPath")}/exampleClasses`
 
     const tableItem = (num = -1, index = -1) => {
 

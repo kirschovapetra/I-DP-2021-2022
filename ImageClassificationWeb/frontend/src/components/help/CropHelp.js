@@ -13,7 +13,7 @@ import {CanvasControlsCallout} from "./CanvasControlsCallout";
  */
 export const CropHelp = ({method}) => {
 
-    const imagesRoot = '../../../../static/images/help'
+    const imagesRoot = i18n.t("helpImgPath")
 
     return (
         <>

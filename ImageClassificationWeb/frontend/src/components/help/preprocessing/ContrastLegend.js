@@ -11,7 +11,7 @@ import {capitalize} from "../../../utils";
  */
 export const ContrastLegend = () => {
 
-    const imagesRoot = '../../../../../static/images/help/preprocessing'
+    const imagesRoot = `${i18n.t("helpImgPath")}/preprocessing`
 
     return (
         <>
