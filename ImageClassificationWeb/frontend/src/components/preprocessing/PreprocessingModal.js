@@ -26,7 +26,10 @@ export const PreprocessingModal = ({show, onShow, onHide, imageSrc, fileUrl, set
     const formRef = useRef()
 
     return (
-        <CModal visible={show} onShow={onShow} onClose={onHide} size="xl" alignment={'center'} scrollable={true} portal={false}>
+        <CModal visible={show} onShow={()=>{
+            onShow()
+            formRef.current?.clearForm()
+        }} onClose={onHide} size="xl" alignment={'center'} scrollable={true} portal={false}>
             <CModalHeader closeButton>
                 <CModalTitle id="contained-modal-title-vcenter">
                     {i18n.t("preprocessingForm.preprocessing")}
