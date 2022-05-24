@@ -1,4 +1,5 @@
 import json
+import logging
 
 import numpy as np
 from PIL import Image
@@ -60,6 +61,7 @@ class PredictConsumer(View):
         :param pred_method: Prediction method (single/multi)
         :return:
         """
+
         try:
             post = request.POST
             results, pred_list, classes, id_list = json.dumps([]), json.dumps([]), json.dumps([]), json.dumps([])
@@ -79,6 +81,7 @@ class PredictConsumer(View):
             return JsonResponse({'results': results, 'pred_list': pred_list, 'classes': classes, 'id_list': id_list})
         except Exception as e:
             print("Predict exception: ", str(e))
+            logging.getLogger('django').info("Predict exception: " + str(e))
             return JsonResponse({'results': json.dumps([]), 'pred_list': json.dumps([]), 'classes': json.dumps([]), 'id_list': json.dumps([]),
                                  'error': str(e)})
 
@@ -131,6 +134,7 @@ class Denoise(View):
 
         except Exception as e:
             print("Denoise exception: ", str(e))
+            logging.getLogger('django').info("Denoise exception: " + str(e))
             return JsonResponse({'image_edited': image_orig, 'error': str(e)})
 
 
@@ -173,4 +177,5 @@ class Threshold(View):
 
         except Exception as e:
             print("Threshold exception: ", str(e))
+            logging.getLogger('django').info("Threshold exception: " + str(e))
             return JsonResponse({'image_edited': image, 'error': str(e)})

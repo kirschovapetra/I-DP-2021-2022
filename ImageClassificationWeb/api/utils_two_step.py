@@ -28,6 +28,7 @@ class TwoStep(ModelUtils):
         """
         record = TwoStepModel.get(f"{primary_method.lower()}+{primary_name.lower()}+{secondary_name.lower()}")
         print(record)
+        logging.getLogger('django').info(str(record))
         sec_path = os.path.join(RESOURCES_DIR, MlMethod.TWO_STEP.value, classifierId, record.base_dir, f'{record.base_dir}.h5')
         return load_model(sec_path, compile=False)
 

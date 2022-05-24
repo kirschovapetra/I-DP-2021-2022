@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 from skimage import transform
 import tensorflow as tf
-
+import logging
 from api.models import CnnModel, BoostingModel, BaggingModel, StackingModel, TwoStepModel
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -17,6 +17,8 @@ conf.gpu_options.allow_growth = True
 conf.allow_soft_placement = True
 session = tf.compat.v1.Session(config=conf)
 
+logger = logging.getLogger('django')
+logger.info('Test log')
 ''' --------------------------------- Constants ------------------------------------ '''
 
 RESOURCES_DIR = 'resources/models'

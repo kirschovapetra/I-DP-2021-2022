@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 
 import numpy as np
@@ -106,6 +107,7 @@ class Bagging(ModelUtils):
         """
         results, pred_list, classes, id_list = json.dumps([]), json.dumps([]), json.dumps([]), json.dumps([])
         print(post)
+        logging.getLogger('django').info(str(post))
         # reload weak classifiers
         model_name = post['model_name'].lower()
         root_dir, base_names, _ = Bagging.reload(post['model_name'], int(post['n_estimators']))

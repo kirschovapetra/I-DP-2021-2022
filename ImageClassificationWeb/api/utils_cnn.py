@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 
 import numpy as np
@@ -23,6 +24,7 @@ class Cnn(ModelUtils):
 
         record = CnnModel.get(model_name)
         print(record)
+        logging.getLogger('django').info(str(record))
         model_path = os.path.join(RESOURCES_DIR, MlMethod.CNN.value, record.filename)
         model = load_model(model_path, compile=False)
         return model, model_name
@@ -41,6 +43,8 @@ class Cnn(ModelUtils):
 
         # convert images to numpy array
         np_image = load_img_to_numpy(file, img_size)
+        print(np_image.shape)
+        logging.getLogger('django').info(str(np_image.shape))
         # predict with cnn classifier
         pred_y = model.predict(np_image, verbose=0)
         return pred_y
