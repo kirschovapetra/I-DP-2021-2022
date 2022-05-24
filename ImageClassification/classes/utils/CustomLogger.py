@@ -1,4 +1,5 @@
 import logging
+import os
 from datetime import datetime, timedelta
 
 import colorlog
@@ -22,6 +23,9 @@ class CustomLogger:
         colorlog.basicConfig(format='%(log_color)s%(asctime)s %(filename)s: [%(levelname)s] %(message)s')
         log = logging.getLogger(__name__)
         log.setLevel(logging.INFO)
+
+        if not os.path.exists(f'{project_root}/tmp/logs'):
+            os.makedirs(f'{project_root}/tmp/logs')
 
         fh = logging.FileHandler(f'{project_root}/tmp/logs/info.log')
         fh.setLevel(logging.INFO)

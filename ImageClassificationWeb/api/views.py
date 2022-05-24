@@ -79,7 +79,8 @@ class PredictConsumer(View):
             return JsonResponse({'results': results, 'pred_list': pred_list, 'classes': classes, 'id_list': id_list})
         except Exception as e:
             print("Predict exception: ", str(e))
-            return JsonResponse({'results': json.dumps([]), 'pred_list': json.dumps([]), 'classes': json.dumps([]), 'id_list': json.dumps([])})
+            return JsonResponse({'results': json.dumps([]), 'pred_list': json.dumps([]), 'classes': json.dumps([]), 'id_list': json.dumps([]),
+                                 'error': str(e)})
 
 
 class Denoise(View):
@@ -130,7 +131,7 @@ class Denoise(View):
 
         except Exception as e:
             print("Denoise exception: ", str(e))
-            return JsonResponse({'image_edited': image_orig})
+            return JsonResponse({'image_edited': image_orig, 'error': str(e)})
 
 
 class Threshold(View):
@@ -172,4 +173,4 @@ class Threshold(View):
 
         except Exception as e:
             print("Threshold exception: ", str(e))
-            return JsonResponse({'image_edited': image})
+            return JsonResponse({'image_edited': image, 'error': str(e)})

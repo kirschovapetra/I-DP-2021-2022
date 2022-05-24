@@ -56,7 +56,6 @@ class Graphs:
         plt.ylabel("Actual")
         plt.title("Confusion Matrix - " + title)
         plt.tight_layout()
-        plt.savefig(f'tmp/charts/{title}_conf.png', transparent=True)
         plt.show()
 
         print("\nClassification Report:\n----------------------\n",
@@ -102,7 +101,6 @@ class Graphs:
         axes[1].set_ylabel('Accuracy')
         axes[1].legend()
         plt.tight_layout()
-        plt.savefig(f'tmp/charts/{title}_hist.png', transparent=True)
         plt.show()
 
     @staticmethod
@@ -123,7 +121,7 @@ class Graphs:
         for title, history in histories.items():
             Graphs.plot_history_i(axes, history, title, i)
             i += 1
-        plt.savefig(save_as, transparent=True)
+
         plt.tight_layout()
         plt.show()
 
@@ -142,8 +140,6 @@ class Graphs:
         fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(20, 15))
         Graphs.plot_history_i(axes, model_cnn_history, "CNN", 0)
         Graphs.plot_xgboost_history_i(axes, model_xgb_history, "XGBOOST", 1)
-
-        plt.savefig(save_as, transparent=True)
         plt.tight_layout()
         plt.show()
 
