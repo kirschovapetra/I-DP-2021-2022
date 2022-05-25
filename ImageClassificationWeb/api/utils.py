@@ -12,13 +12,12 @@ import logging
 from api.models import CnnModel, BoostingModel, BaggingModel, StackingModel, TwoStepModel
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-conf = tf.compat.v1.ConfigProto()
-conf.gpu_options.allow_growth = True
-conf.allow_soft_placement = True
-session = tf.compat.v1.Session(config=conf)
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+if tf.test.gpu_device_name():
+    logging.getLogger('django').info('GPU found')
+else:
+    logging.getLogger('django').info("No GPU found")
 
-logger = logging.getLogger('django')
-logger.info('Test log')
 ''' --------------------------------- Constants ------------------------------------ '''
 
 RESOURCES_DIR = 'resources/models'
