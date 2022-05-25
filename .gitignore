@@ -9,3 +9,4 @@
 **/**/.idea/**
 **/**/cut_images/**/**
 !**/**/gitkeep
+**/**/**.log

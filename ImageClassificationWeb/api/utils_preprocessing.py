@@ -46,36 +46,6 @@ def get_data_url_from_image(image):
     return 'data:image/jpeg;base64,' + base64.b64encode(buffered.getvalue()).decode("utf-8")
 
 
-def rgba2rgb(rgba):
-    """
-    Convert RGBA image to RGB
-
-    Source: https://stackoverflow.com/questions/50331463/convert-rgba-to-rgb-in-python
-
-    :param rgba:  RGBA image
-    :return: RGB image
-    """
-    row, col, ch = rgba.shape
-
-    if ch == 3:
-        return rgba
-
-    assert ch == 4, 'RGBA image has 4 channels.'
-
-    rgb = np.zeros((row, col, 3), dtype='float32')
-    r, g, b, a = rgba[:, :, 0], rgba[:, :, 1], rgba[:, :, 2], rgba[:, :, 3]
-
-    a = np.asarray(a, dtype='float32') / 255.0
-
-    R, G, B = (255, 255, 255)
-
-    rgb[:, :, 0] = r * a + (1.0 - a) * R
-    rgb[:, :, 1] = g * a + (1.0 - a) * G
-    rgb[:, :, 2] = b * a + (1.0 - a) * B
-
-    return np.asarray(rgb, dtype='uint8')
-
-
 def get_image_from_data_url(data_url):
     """
     Convert data URL to ContentFile

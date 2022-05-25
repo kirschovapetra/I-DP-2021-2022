@@ -10,15 +10,17 @@ import i18n from "../../../../translation/i18n";
  * @param thresholdRadioItems - data for Radio form items
  * @param setChangedThreshold - method to invoke threshold changed
  * @param imageId - image identificator
+ * @param resetLoadingBar - function to reset loading bar
  * @returns {JSX.Element}
  * @constructor
  * @component
  */
-export const ThresholdAdaptive = React.forwardRef(({selected, setThresholdRequest, thresholdRadioItems, setChangedThreshold, imageId}, ref) => {
+export const ThresholdAdaptive = React.forwardRef(({selected, setThresholdRequest, thresholdRadioItems, setChangedThreshold, imageId, resetLoadingBar}, ref) => {
 
     const T = PREPROCESSING.THRESHOLD
 
     const changeThresholdAdaptive = (e) => {
+        resetLoadingBar()
 
         setAdaptiveOptions({
                 inputs:

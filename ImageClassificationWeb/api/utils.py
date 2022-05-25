@@ -9,6 +9,7 @@ from PIL import Image
 from skimage import transform
 import tensorflow as tf
 import logging
+from skimage.color import rgba2rgb
 from api.models import CnnModel, BoostingModel, BaggingModel, StackingModel, TwoStepModel
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -226,6 +227,11 @@ def load_img_to_numpy(file, img_size):
     """
     np_image = Image.open(file)
     np_image = np.array(np_image).astype('float32') / 255.
+    try:
+        np_image = rgba2rgb(np_image)
+    except:
+        pass
+
     np_image = transform.resize(np_image, img_size + (3,))
     np_image = np.expand_dims(np_image, axis=0)
     return np_image

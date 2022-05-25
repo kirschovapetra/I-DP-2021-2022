@@ -1,4 +1,4 @@
-import {CCol, CFormSwitch, CRow} from "@coreui/react";
+import {CCol, CFormSwitch, CProgress, CProgressBar, CRow, CContainer} from "@coreui/react";
 import React, {useEffect, useRef, useState} from "react";
 import ProcessImage from "react-imgpro";
 import {Flip} from "./preprocessingFormElements/Flip";
@@ -29,6 +29,9 @@ import i18n from "../../translation/i18n";
  * @constructor
  * @component
  */
+
+let interval = undefined;
+
 export const PreprocessingForm = React.forwardRef(({imageSrc, fileUrl, setFileUrl, setEditFileUrl, imageId, imageSize, imageSizeOriginal, updateDimensions}, ref) => {
 
 
@@ -57,8 +60,33 @@ export const PreprocessingForm = React.forwardRef(({imageSrc, fileUrl, setFileUr
     const [denoiseRequest, setDenoiseRequest] = useState(false)
     const [changedDenoise, setChangedDenoise] = useState(false)
 
+    const [running, setRunning] = useState(true);
+    const [progress, setProgress] = useState(0);
+
     const updateSize = (newSize) => updateDimensions(newSize, imageId)
 
+    const resetLoadingBar = () => {
+        if (!running) setRunning(true)
+    }
+
+    useEffect(() => {
+        if (running) {
+            interval = setInterval(() => {
+                setProgress((prev) => prev + 1);
+            }, 10);
+        } else {
+            clearInterval(interval);
+        }
+    }, [running]);
+
+    useEffect(() => {
+
+        if (progress === 200) {
+            setRunning(false);
+            clearInterval(interval);
+            setProgress(0);
+        }
+    }, [progress]);
 
     useEffect(() => {
 
@@ -152,39 +180,50 @@ export const PreprocessingForm = React.forwardRef(({imageSrc, fileUrl, setFileUr
                             <CRow>
                                 <Threshold ref={thresholdRef} imageId={imageId}
                                            setThresholdRequest={setThresholdRequest}
-                                           setChangedThreshold={setChangedThreshold}/>
+                                           setChangedThreshold={setChangedThreshold}
+                                           resetLoadingBar={resetLoadingBar}/>
                             </CRow>
                             <CRow className={'pb-3'}>
                                 <Denoise ref={denoiseRef} imageId={imageId}
                                          setDenoiseRequest={setDenoiseRequest}
-                                         setChangedDenoise={setChangedDenoise}/>
+                                         setChangedDenoise={setChangedDenoise}
+                                         resetLoadingBar={resetLoadingBar}/>
                             </CRow>
                         </CCol>
                     </CRow>
                 </CCol>
                 <CCol xl={3}>
-                    <ProcessImage
-                        image={fileUrl}
-                        flip={flip}
-                        rotate={{degree: rotation, mode: 'bilinear'}}
-                        brightness={brightness}
-                        contrast={contrast}
-                        greyscale={colorMode === PREPROCESSING.COLOR_MODE.GREYSCALE}
-                        sepia={colorMode === PREPROCESSING.COLOR_MODE.SEPIA}
-                        invert={colorMode === PREPROCESSING.COLOR_MODE.INVERT}
-                        normalize={normalize}
-                        resize={imageSize ? imageSize : undefined}
-                        colors={colorMode === PREPROCESSING.COLOR_MODE.CUSTOM ? {mix: {color: color}} : undefined}
-                        getImageRef={image => setImageRef(image)}
-                        processedImage={(src, err) => {
-                            if (!changedThreshold && !changedDenoise) {
-                                if (imageId) localStorage.setItem(imageId, fileUrl)
-                            }
-                            setEditFileUrl(src)
-                            if (err) console.log(err)
-                        }}
-                    />
+                    {
+                        running ?
+                            <CProgress>
+                                <CProgressBar color="info" variant="striped" animated value={progress}/>
+                            </CProgress>
 
+                            :
+                            <CRow>
+                                <ProcessImage
+                                    image={fileUrl}
+                                    flip={flip}
+                                    rotate={{degree: rotation, mode: 'bilinear'}}
+                                    brightness={brightness}
+                                    contrast={contrast}
+                                    greyscale={colorMode === PREPROCESSING.COLOR_MODE.GREYSCALE}
+                                    sepia={colorMode === PREPROCESSING.COLOR_MODE.SEPIA}
+                                    invert={colorMode === PREPROCESSING.COLOR_MODE.INVERT}
+                                    normalize={normalize}
+                                    resize={imageSize ? imageSize : undefined}
+                                    colors={colorMode === PREPROCESSING.COLOR_MODE.CUSTOM ? {mix: {color: color}} : undefined}
+                                    getImageRef={image => setImageRef(image)}
+                                    processedImage={(src, err) => {
+                                        if (!changedThreshold && !changedDenoise) {
+                                            if (imageId) localStorage.setItem(imageId, fileUrl)
+                                        }
+                                        setEditFileUrl(src)
+                                        if (err) console.log(err)
+                                    }}
+                                />
+                            </CRow>
+                    }
                 </CCol>
             </CRow>
         </>

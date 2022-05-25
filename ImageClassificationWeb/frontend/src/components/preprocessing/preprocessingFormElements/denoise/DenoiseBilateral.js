@@ -10,15 +10,17 @@ import i18n from "../../../../translation/i18n";
  * @param denoiseRadioItems - data for Radio form items
  * @param selected - TV-Chambolle is selected (bool)
  * @param imageId - image identificator
+ * @param resetLoadingBar - function to reset loading bar
  * @returns {JSX.Element}
  * @constructor
  * @component
  */
-export const DenoiseBilateral = React.forwardRef(({setChangedDenoise, setDenoiseRequest, denoiseRadioItems, selected, imageId}, ref) => {
+export const DenoiseBilateral = React.forwardRef(({setChangedDenoise, setDenoiseRequest, denoiseRadioItems, selected, imageId, resetLoadingBar}, ref) => {
 
     const D = PREPROCESSING.DENOISE
 
     const changeDenoiseBilateral = (e) => {
+        resetLoadingBar()
         setBilateralOptions({
                 inputs:
                     bilateralOptions.inputs.map(

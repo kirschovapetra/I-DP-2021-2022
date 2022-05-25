@@ -43,7 +43,6 @@ class Cnn(ModelUtils):
 
         # convert images to numpy array
         np_image = load_img_to_numpy(file, img_size)
-        print(np_image.shape)
         logging.getLogger('django').info(str(np_image.shape))
         # predict with cnn classifier
         pred_y = model.predict(np_image, verbose=0)
