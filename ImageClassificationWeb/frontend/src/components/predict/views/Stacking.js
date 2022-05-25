@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ML, ML_METHOD} from "../../../utils";
+import {ML, ML_METHOD, MODELS, MODELS_STACKING} from "../../../utils";
 import {capitalize, formatMessage, sendGetRequest} from "../../../utils";
 import {DropdownGroup} from "../../form/DropdownGroup";
 import {CCol, CRow} from "@coreui/react";
@@ -15,9 +15,6 @@ import CnnBoosting from "./CnnBoosting";
  * @component
  */
 const Stacking = ({setModelName, colWidth = 6}) => {
-    const [models, setModels] = useState([])
-    useEffect(() => sendGetRequest(`/models/${ML_METHOD.STACKING}`, setModels).then(), [])
-
     const dropdown1Init = {
         id: `${ML.MODEL}_1`,
         name: `${ML.MODEL}_1`,
@@ -26,7 +23,7 @@ const Stacking = ({setModelName, colWidth = 6}) => {
         onChange: (e) => {
             setModels1Dropdown(item => item.id === e.target.id ? {...item, value: e.target.value} : item)
         },
-        options: [{value: ''}].concat(models.map(mdl => ({value: mdl.title})))
+        options: [{value: ''}].concat(MODELS_STACKING.map(mdl => ({value: mdl})))
     }
 
     const dropdown2Init = {
@@ -37,7 +34,7 @@ const Stacking = ({setModelName, colWidth = 6}) => {
         onChange: (e) => {
             setModels2Dropdown(item => item.id === e.target.id ? {...item, value: e.target.value} : item)
         },
-        options: [{value: ''}].concat(models.map(mdl => ({value: mdl.title})))
+        options: [{value: ''}].concat(MODELS_STACKING.map(mdl => ({value: mdl})))
     }
 
     const dropdown3Init = {
@@ -49,19 +46,12 @@ const Stacking = ({setModelName, colWidth = 6}) => {
         onChange: (e) => {
             setModels3Dropdown(item => item.id === e.target.id ? {...item, value: e.target.value} : item)
         },
-        options: [{value: ''}].concat(models.map(mdl => ({value: mdl.title})))
+        options: [{value: ''}].concat(MODELS_STACKING.map(mdl => ({value: mdl})))
     }
 
     const [models1Dropdown, setModels1Dropdown] = useState(dropdown1Init)
     const [models2Dropdown, setModels2Dropdown] = useState(dropdown2Init)
     const [models3Dropdown, setModels3Dropdown] = useState(dropdown3Init)
-
-    useEffect(() => {
-        setModelName('')
-        setModels1Dropdown({...models1Dropdown, options: [{value: ''}].concat(models.map(mdl => ({value: mdl.title})))})
-        setModels2Dropdown({...models2Dropdown, options: [{value: ''}].concat(models.map(mdl => ({value: mdl.title})))})
-        setModels3Dropdown({...models3Dropdown, options: [{value: ''}].concat(models.map(mdl => ({value: mdl.title})))})
-    }, [models]);
 
     useEffect(() => {
         let values = [models1Dropdown, models2Dropdown, models3Dropdown].map(itm => itm.value).filter(itm => itm.length > 0)

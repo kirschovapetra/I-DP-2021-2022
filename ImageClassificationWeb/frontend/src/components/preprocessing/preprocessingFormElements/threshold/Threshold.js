@@ -11,12 +11,11 @@ import i18n from "../../../../translation/i18n";
  * @param setThresholdRequest - method to set threshold request
  * @param setChangedThreshold - method to invoke threshold changed
  * @param imageId - image identificator
- * @param resetLoadingBar - function to reset loading bar
  * @returns {JSX.Element}
  * @constructor
  * @component
  */
-export const Threshold = React.forwardRef(({setThresholdRequest, setChangedThreshold, imageId, resetLoadingBar}, ref) => {
+export const Threshold = React.forwardRef(({setThresholdRequest, setChangedThreshold, imageId}, ref) => {
 
     const TM = PREPROCESSING.THRESHOLD.THRESHOLD_MODE
 
@@ -57,7 +56,6 @@ export const Threshold = React.forwardRef(({setThresholdRequest, setChangedThres
         let currentFileUrl = localStorage.getItem(imageId)
         if (!currentFileUrl) return
 
-        resetLoadingBar()
 
         const content = {'image': currentFileUrl, 'threshold_mode': selected}
 
@@ -92,7 +90,7 @@ export const Threshold = React.forwardRef(({setThresholdRequest, setChangedThres
             <CheckGroup type="radio" radioItems={thresholdRadioItems} direction={"horizontal"}/>
             {
                 selected === TM.ADAPTIVE && <ThresholdAdaptive ref={adaptRef} selected={selected} setThresholdRequest={setThresholdRequest} imageId={imageId}
-                                                               thresholdRadioItems={thresholdRadioItems} setChangedThreshold={setChangedThreshold} resetLoadingBar={resetLoadingBar}/>
+                                                               thresholdRadioItems={thresholdRadioItems} setChangedThreshold={setChangedThreshold}/>
             }
 
         </>

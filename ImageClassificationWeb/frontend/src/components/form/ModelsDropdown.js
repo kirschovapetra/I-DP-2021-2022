@@ -18,12 +18,12 @@ export const ModelsDropdown = ({models, helpMethod, setModelName}) => {
         name: ML.MODEL,
         text: formatMessage(helpMethod, false, i18n),
         label: capitalize(ML.MODEL),
-        value: models[0]?.title || '',
+        value: models[0] || '',
         onChange: (e) => {
             setModelsDropdown(item => item.id === e.target.id ? {...item, value: e.target.value} : item)
         },
         options: models.map(
-            (mdl) => ({value: mdl.title})
+            (mdl) => ({value: mdl})
         )
     }
 

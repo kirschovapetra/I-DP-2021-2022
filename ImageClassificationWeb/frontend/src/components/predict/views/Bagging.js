@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {capitalize, formatMessage, ML, ML_METHOD, sendGetRequest} from "../../../utils";
+import {capitalize, formatMessage, ML, ML_METHOD, MODELS, sendGetRequest} from "../../../utils";
 import {InputMixGroup} from "../../form/InputMixGroup";
 import {CCol, CRow} from "@coreui/react";
 import i18n from "../../../translation/i18n";
@@ -15,30 +15,17 @@ import i18n from "../../../translation/i18n";
  */
 const Bagging = ({setModelName, setContent, colWidth = 6}) => {
 
-    const [models, setModels] = useState([])
-    useEffect(() => sendGetRequest(`/models/${ML_METHOD.BAGGING}`, setModels).then(), [])
-    useEffect(() => {
-        setModelsDropdown(
-            {
-                ...modelsDropdown,
-                value: models[0]?.title || '',
-                options: models.map(mdl => ({value: mdl.title}))
-            }
-        )
-    }, [models]);
-
-
     const modelsInit = {
         id: ML.MODEL,
         name: ML.MODEL,
         label: capitalize(ML.MODEL),
         text: formatMessage('Bagging', false, i18n),
-        value: models[0]?.title || '',
+        value: MODELS[0],
         onChange: (e) => {
             setModelsDropdown(item => item.id === e.target.id ? {...item, value: e.target.value} : item)
         },
-        options: models.map(
-            (mdl) => ({value: mdl.title})
+        options: MODELS.map(
+            (mdl) => ({value: mdl})
         )
     }
 

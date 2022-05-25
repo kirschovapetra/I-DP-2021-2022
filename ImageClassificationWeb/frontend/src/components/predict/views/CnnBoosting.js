@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {CCol, CRow} from "@coreui/react";
-import {sendGetRequest} from "../../../utils";
+import {MODELS, sendGetRequest} from "../../../utils";
 import {ModelsDropdown} from "../../form/ModelsDropdown";
 
 /***
@@ -14,14 +14,10 @@ import {ModelsDropdown} from "../../form/ModelsDropdown";
  * @component
  */
 const CnnBoosting = ({setModelName,colWidth= 6, method, helpMethod}) => {
-    const [models, setModels] = useState([])
-    const [changed, setChanged] = useState()
-    useEffect(() => sendGetRequest(`/models/${method}`, setModels).then(), [])
-    useEffect(() => setChanged(Date.now()), [models]);
     return (
-        <CRow className="my-3" key={changed}>
+        <CRow className="my-3">
             <CCol lg={colWidth} className='mx-auto text-end'>
-                <ModelsDropdown models={models} helpMethod={helpMethod} setModelName={setModelName}/>
+                <ModelsDropdown models={MODELS} helpMethod={helpMethod} setModelName={setModelName}/>
             </CCol>
         </CRow>
     )

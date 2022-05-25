@@ -1,4 +1,4 @@
-import {CCol, CFormSwitch, CProgress, CProgressBar, CRow, CContainer} from "@coreui/react";
+import {CCol, CFormSwitch, CProgress, CProgressBar, CRow, CContainer, CSpinner} from "@coreui/react";
 import React, {useEffect, useRef, useState} from "react";
 import ProcessImage from "react-imgpro";
 import {Flip} from "./preprocessingFormElements/Flip";
@@ -62,12 +62,10 @@ export const PreprocessingForm = React.forwardRef(({imageSrc, fileUrl, setFileUr
 
     const [running, setRunning] = useState(true);
     const [progress, setProgress] = useState(0);
+    const [loading, setLoading] = useState(false)
 
     const updateSize = (newSize) => updateDimensions(newSize, imageId)
 
-    const resetLoadingBar = () => {
-        if (!running) setRunning(true)
-    }
 
     useEffect(() => {
         if (running) {
@@ -92,11 +90,11 @@ export const PreprocessingForm = React.forwardRef(({imageSrc, fileUrl, setFileUr
 
             const sendRequest = async () => {
                 if (changedThreshold && changedDenoise) {
-                    await sendPreprocessingRequestMulti(ENDPOINT.DENOISE, ENDPOINT.THRESHOLD, denoiseRequest, thresholdRequest, setFileUrl)
+                    await sendPreprocessingRequestMulti(ENDPOINT.DENOISE, ENDPOINT.THRESHOLD, denoiseRequest, thresholdRequest, setFileUrl, setLoading)
                 } else if (changedThreshold) {
-                    await sendPreprocessingRequest(ENDPOINT.THRESHOLD, createFormData(thresholdRequest), setFileUrl)
+                    await sendPreprocessingRequest(ENDPOINT.THRESHOLD, createFormData(thresholdRequest), setFileUrl, setLoading)
                 } else if (changedDenoise) {
-                    await sendPreprocessingRequest(ENDPOINT.DENOISE, createFormData(denoiseRequest), setFileUrl)
+                    await sendPreprocessingRequest(ENDPOINT.DENOISE, createFormData(denoiseRequest), setFileUrl, setLoading)
                 } else {
                     if (imageId) setFileUrl(localStorage.getItem(imageId))
                 }
@@ -180,14 +178,12 @@ export const PreprocessingForm = React.forwardRef(({imageSrc, fileUrl, setFileUr
                             <CRow>
                                 <Threshold ref={thresholdRef} imageId={imageId}
                                            setThresholdRequest={setThresholdRequest}
-                                           setChangedThreshold={setChangedThreshold}
-                                           resetLoadingBar={resetLoadingBar}/>
+                                           setChangedThreshold={setChangedThreshold}/>
                             </CRow>
                             <CRow className={'pb-3'}>
                                 <Denoise ref={denoiseRef} imageId={imageId}
                                          setDenoiseRequest={setDenoiseRequest}
-                                         setChangedDenoise={setChangedDenoise}
-                                         resetLoadingBar={resetLoadingBar}/>
+                                         setChangedDenoise={setChangedDenoise}/>
                             </CRow>
                         </CCol>
                     </CRow>
@@ -198,7 +194,6 @@ export const PreprocessingForm = React.forwardRef(({imageSrc, fileUrl, setFileUr
                             <CProgress>
                                 <CProgressBar color="info" variant="striped" animated value={progress}/>
                             </CProgress>
-
                             :
                             <CRow>
                                 <ProcessImage
@@ -222,8 +217,11 @@ export const PreprocessingForm = React.forwardRef(({imageSrc, fileUrl, setFileUr
                                         if (err) console.log(err)
                                     }}
                                 />
+
                             </CRow>
+
                     }
+                    {loading && <CSpinner color="success" style={{position:"relative", zIndex:999, bottom:"35%", left:"48%"}}/>}
                 </CCol>
             </CRow>
         </>

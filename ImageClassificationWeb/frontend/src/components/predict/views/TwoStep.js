@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {CCol, CRow} from "@coreui/react";
-import {ML_METHOD} from "../../../utils";
+import {ML_METHOD, MODELS} from "../../../utils";
 import {capitalize, sendGetRequest} from "../../../utils";
 import {CheckGroup} from "../../form/CheckGroup";
 import {ModelsDropdown} from "../../form/ModelsDropdown";
@@ -20,10 +20,10 @@ const Bagging = React.lazy(() => import('./Bagging'))
  * @component
  */
 const TwoStep = ({setModelName, setContent}) => {
-    const [models, setModels] = useState([])
-    const [changed, setChanged] = useState()
-    useEffect(() => sendGetRequest(`/models/${ML_METHOD.TWO_STEP}`, setModels).then(), [])
-    useEffect(() => setChanged(Date.now()), [models]);
+    // const [models, setModels] = useState([])
+    // const [changed, setChanged] = useState()
+    // useEffect(() => sendGetRequest(`/models/${ML_METHOD.TWO_STEP}`, setModels).then(), [])
+    // useEffect(() => setChanged(Date.now()), [models]);
 
     const modelsRadioItemsInit = [
         {
@@ -103,7 +103,7 @@ const TwoStep = ({setModelName, setContent}) => {
             </CCol>
             <CCol lg={5} className={'text-end'}>
                 <h5 className={'mb-2 text-center'}>{i18n.t("help.secondary")}</h5>
-                <ModelsDropdown models={models} helpMethod={`${i18n.t("help.secondaryOnly")} CNN`} setModelName={setModelName} key={changed}/>
+                <ModelsDropdown models={MODELS} helpMethod={`${i18n.t("help.secondaryOnly")} CNN`} setModelName={setModelName}/>
             </CCol>
         </CRow>
     )

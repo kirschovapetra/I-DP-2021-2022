@@ -13,12 +13,11 @@ import i18n from "../../../../translation/i18n";
  * @param setChangedDenoise - method to invoke denoise changed
  * @param setDenoiseRequest - method to change denoise POST request
  * @param selected - TV-Chambolle is selected (bool)
- * @param resetLoadingBar - function to reset loading bar
  * @returns {JSX.Element}
  * @constructor
  * @component
  */
-export const Denoise = React.forwardRef(({setChangedDenoise, setDenoiseRequest, imageId, resetLoadingBar}, ref) => {
+export const Denoise = React.forwardRef(({setChangedDenoise, setDenoiseRequest, imageId}, ref) => {
 
     const MODE = PREPROCESSING.DENOISE.DENOISE_MODE
 
@@ -65,7 +64,6 @@ export const Denoise = React.forwardRef(({setChangedDenoise, setDenoiseRequest, 
 
     useEffect(() => {
 
-        resetLoadingBar()
 
         if (selected === MODE.NONE_DEN) setChangedDenoise(false)
 
@@ -83,7 +81,6 @@ export const Denoise = React.forwardRef(({setChangedDenoise, setDenoiseRequest, 
         setDenoiseRequest: setDenoiseRequest,
         setChangedDenoise: setChangedDenoise,
         imageId:imageId,
-        resetLoadingBar:resetLoadingBar
     }
 
 

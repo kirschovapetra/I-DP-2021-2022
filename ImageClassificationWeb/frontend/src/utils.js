@@ -10,6 +10,9 @@ import i18n from "./translation/i18n";
 
 /********************************************** CONSTANTS ****************************************************/
 
+export const MODELS = ["VGG19", "InceptionV3", "Custom", "ResNet50", "ResNeXt50"]
+export const MODELS_STACKING = ["VGG19", "Custom", "ResNet50"]
+
 export const ML_METHOD = {CNN: 'cnn', BAGGING: 'bagging', BOOSTING: 'boosting', STACKING: 'stacking', TWO_STEP: 'two-step'}
 
 export const PREDICT_VIEW = {SINGLE: 'single', DRAW: 'draw', CROP: 'crop'}
@@ -128,16 +131,21 @@ export const sendPredictRequest = async (endpoint, formData, mapPredictResults, 
  * @param endpoint
  * @param formData
  * @param setFileUrl
+ * @param setLoading
  * @returns {Promise<void>}
  */
-export const sendPreprocessingRequest = async (endpoint, formData, setFileUrl) => {
-
+export const sendPreprocessingRequest = async (endpoint, formData, setFileUrl, setLoading) => {
+    setLoading(true)
     await axios.post(endpoint, formData)
         .then((response) => {
             let data = response.data
             console.log('Success:', data)
             setFileUrl(data['image_edited'])
-        }).catch((error) => console.error('Error:', error))
+            setLoading(false)
+        }).catch((error) => {
+            console.error('Error:', error)
+            setLoading(false)
+        })
 }
 
 /**
@@ -147,10 +155,11 @@ export const sendPreprocessingRequest = async (endpoint, formData, setFileUrl) =
  * @param content1
  * @param content2
  * @param setFileUrl
+ * @param setLoading
  * @returns {Promise<void>}
  */
-export const sendPreprocessingRequestMulti = async (endpoint1, endpoint2, content1, content2, setFileUrl) => {
-
+export const sendPreprocessingRequestMulti = async (endpoint1, endpoint2, content1, content2, setFileUrl, setLoading) => {
+    setLoading(true)
     let formData1 = createFormData(content1)
     await axios.post(endpoint1, formData1)
         .then(async (response) => {
@@ -161,8 +170,12 @@ export const sendPreprocessingRequestMulti = async (endpoint1, endpoint2, conten
                     let data2 = response.data
                     console.log('Success: ', data2)
                     setFileUrl(data2['image_edited'])
+                    setLoading(false)
                 })
-        }).catch((error) => console.error('Error:', error))
+        }).catch((error) => {
+            console.error('Error:', error)
+            setLoading(false)
+        })
 }
 
 /**
