@@ -8,5 +8,5 @@
 **/**/api/migrations/*
 **/**/.idea/**
 **/**/cut_images/**/**
-!**/**/gitkeep
+!**/**/.gitkeep
 **/**/**.log
