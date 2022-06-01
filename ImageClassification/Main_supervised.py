@@ -25,5 +25,4 @@ if __name__ == '__main__':
         # reload=False for training new models, reload=True for loading saved models
 
         # train and test base cnn models
-        # main_cnn(NAMES=[x.value for x in CnnName], DATASETS=[Dataset.VEGA_PRIMARY.value], RELOAD=False)
-        main_cnn(NAMES=[CnnName.CUSTOM.value], DATASETS=[Dataset.VEGA_PRIMARY.value], RELOAD=False)
+        main_cnn(NAMES=[x.value for x in CnnName], DATASETS=[Dataset.VEGA_PRIMARY.value], RELOAD=False)

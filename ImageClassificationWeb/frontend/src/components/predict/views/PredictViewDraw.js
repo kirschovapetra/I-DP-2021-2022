@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {CCol, CRow} from '@coreui/react';
 import {createFormData, sendPredictRequest} from "../../../utils";
 import {PredictResults} from "../PredictResults";
@@ -6,6 +6,7 @@ import {cilBarChart} from "@coreui/icons";
 import {CanvasDrawPreview} from "../CanvasDrawPreview";
 import {ButtonWithIcon} from "../../form/ButtonWithIcon";
 import i18n from "../../../translation/i18n";
+import {useLocation} from "react-router-dom";
 
 /**
  * Core of predict view draw
@@ -18,11 +19,15 @@ import i18n from "../../../translation/i18n";
  */
 
 export const PredictViewDraw = ({modelName, endpoint, content = {}}) => {
-
+    const location = useLocation();
     const [dataUrl, setDataUrl] = useState('')
     const [predList, setPredList] = useState(Array(10).fill(0))
     const [classList, setClassList] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     const [loadingPred, setLoadingPred] = useState(false)
+    const [reload, setReload] = useState()
+
+    useEffect(() => setReload(Date.now()), [location]);
+
 
     const mapPredictResults = (res, pred, classes) => {
         setPredList(pred)
@@ -43,7 +48,7 @@ export const PredictViewDraw = ({modelName, endpoint, content = {}}) => {
             <hr className={'mt-3'}/>
             <CRow>
                 <CCol lg={6}>
-                    <CanvasDrawPreview dataUrl={dataUrl} changeDataUrl={(newVal) => setDataUrl(newVal)}/>
+                    <CanvasDrawPreview dataUrl={dataUrl} changeDataUrl={(newVal) => setDataUrl(newVal)} key={reload}/>
                 </CCol>
 
                 <CCol lg={6}>

@@ -10,7 +10,9 @@ import i18n from "./translation/i18n";
 
 /********************************************** CONSTANTS ****************************************************/
 
-export const MODELS = ["VGG19", "InceptionV3", "Custom", "ResNet50", "ResNeXt50"]
+export const MODELS = ["VGG19", "InceptionV3", "Custom", "ResNet50",
+    // "ResNeXt50"
+]
 export const MODELS_STACKING = ["VGG19", "Custom", "ResNet50"]
 
 export const ML_METHOD = {CNN: 'cnn', BAGGING: 'bagging', BOOSTING: 'boosting', STACKING: 'stacking', TWO_STEP: 'two-step'}
