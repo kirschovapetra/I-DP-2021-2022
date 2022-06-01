@@ -19,15 +19,11 @@ import {useLocation} from "react-router-dom";
  */
 
 export const PredictViewDraw = ({modelName, endpoint, content = {}}) => {
-    const location = useLocation();
+
     const [dataUrl, setDataUrl] = useState('')
     const [predList, setPredList] = useState(Array(10).fill(0))
     const [classList, setClassList] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     const [loadingPred, setLoadingPred] = useState(false)
-    const [reload, setReload] = useState()
-
-    useEffect(() => setReload(Date.now()), [location]);
-
 
     const mapPredictResults = (res, pred, classes) => {
         setPredList(pred)
@@ -48,7 +44,7 @@ export const PredictViewDraw = ({modelName, endpoint, content = {}}) => {
             <hr className={'mt-3'}/>
             <CRow>
                 <CCol lg={6}>
-                    <CanvasDrawPreview dataUrl={dataUrl} changeDataUrl={(newVal) => setDataUrl(newVal)} key={reload}/>
+                    <CanvasDrawPreview dataUrl={dataUrl} changeDataUrl={(newVal) => setDataUrl(newVal)}/>
                 </CCol>
 
                 <CCol lg={6}>

@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {useParams} from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useLocation, useParams} from "react-router-dom";
 import {ENDPOINT, initView, ML_METHOD} from "../../../utils";
 import {CCard, CCardBody, CCardHeader, CRow} from "@coreui/react";
 import {HelpIconTooltip} from "../../help/HelpIconTooltip";
@@ -18,8 +18,12 @@ const Bagging = React.lazy(() => import('./Bagging'))
  */
 const PredictView = ({predictView}) => {
     const {method} = useParams()
+    const location = useLocation();
+     const [reload, setReload] = useState()
     const [modelName, setModelName] = useState('')
     const [content, setContent] = useState()
+
+    useEffect(() => setReload(Date.now()), [location]);
 
     const getInit = () => {
         switch (method) {
@@ -43,7 +47,7 @@ const PredictView = ({predictView}) => {
                     <CCardHeader className={'pt-2 pb-1 justify-content-end text-end'}>
                         <HelpIconTooltip title={getInit().title} content={getInit().helpContent} modalSize={'xl'}/>
                     </CCardHeader>
-                    <CCardBody>
+                    <CCardBody key={reload}>
                         {
                             method === ML_METHOD.CNN ? <CnnBoosting setModelName={setModelName} method={method} helpMethod={"CNN"}/> :
                                 method === ML_METHOD.BAGGING ? <Bagging setModelName={setModelName} setContent={setContent}/> :
