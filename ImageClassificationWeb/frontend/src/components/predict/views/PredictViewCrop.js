@@ -20,6 +20,7 @@ export const PredictViewCrop = ({modelName, endpoint, content = {}}) => {
     const [bgFileUrl, setBgFileUrl] = useState('')
     const [colorMap, setColorMap] = useState(undefined)
     const [resultMap, setResultMap] = useState(undefined)
+    const [changed, setChanged] = useState()
 
     useEffect(() => {
         let lang = localStorage.getItem("lang")
@@ -44,13 +45,18 @@ export const PredictViewCrop = ({modelName, endpoint, content = {}}) => {
         )
     }, [cropListOriginal])
 
+    useEffect(() => {
+        setChanged(Date.now())
+    }, [bgFileUrl]);
+
+
     return (
         <>
             <UploadForm setFileUrl={setBgFileUrl}/>
             <hr className={'my-3'}/>
             <CRow className={'pb-5'}>
                 <CCol md={6} className={'mx-2'}>
-                    <CropCanvas setCropListOriginal={setCropListOriginal}
+                    <CropCanvas setCropListOriginal={setCropListOriginal} key={changed}
                                 bgImage={bgFileUrl} colorMap={colorMap} resultMap={resultMap}/>
                 </CCol>
                 <CCol className={'mx-2'}>
